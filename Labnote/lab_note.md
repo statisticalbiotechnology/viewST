@@ -82,3 +82,10 @@ As the conclusion: three major tasks can list as their difficulties:
 * Pathway diagram.
 
 Two things need to be settled as priority:  Look into spaital plot python file; Download data from reactome and ST website.
+
+Questions due to the py file:
+
+* gene_name_start = "ENSG0"
+* Hugo2Ensembl2Reactome_All_Levels.txt
+
+Try to intalling anaconda 
