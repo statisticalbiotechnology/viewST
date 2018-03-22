@@ -88,4 +88,13 @@ Questions due to the py file:
 * gene_name_start = "ENSG0"
 * Hugo2Ensembl2Reactome_All_Levels.txt
 
-Try to intalling anaconda 
+Try to intalling anaconda
+
+----
+#### 2018-3-21  
+
+Running Gustavo's overlaid image's python code (modified to only access one tissue section).
+
+Unknown error result in no image output. Trying to find solution by adapting the code.
+
+Thinking to use ST view in spatialTranscriptmic website as well.
