@@ -98,3 +98,43 @@ Running Gustavo's overlaid image's python code (modified to only access one tiss
 Unknown error result in no image output. Trying to find solution by adapting the code.
 
 Thinking to use ST view in spatialTranscriptmic website as well.
+
+----
+#### 2018-3-22
+
+Continue debugging the  overlaid image's python code (STviewer.py)
+
+Suspect the memory error problem may due to two factors:
+
+* python 32bit instead of 64bit. Solution: reintalling python
+
+* may caused problem by package scipy griddata. solition: looking into package tutorial.
+
+STviewer.py successfully run, still need to adapt into multiple * tissue sections* and multiple pathways (up to 2000).
+
+----
+#### 2018-3-23
+
+Set up desktop due to the lacking of RAM and desk storage of my laptop.
+
+----
+#### 2018-3-26
+
+The gene express map has successfully yield last week.
+
+Will try to add probe point according to Lukas suggestion.
+
+And will try to plot the map in d3.(2 days limit, if not possible then give up)
+
+----
+#### v2018 -3-28
+
+d3 plots of gene expression seems good, the script has been successfully shows the csv table has transform into svg in HTML
+
+Two job remining at the moment:
+
+* figure out the scale of colorScale
+
+ overlay the tissue image.
+
+ And ask Lukas about the detail demands of interface.
