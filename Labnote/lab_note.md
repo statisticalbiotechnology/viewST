@@ -127,9 +127,9 @@ Will try to add probe point according to Lukas suggestion.
 And will try to plot the map in d3.(2 days limit, if not possible then give up)
 
 ----
-#### v2018 -3-28
+#### 2018 -3-28
 
-d3 plots of gene expression seems good, the script has been successfully shows the csv table has transform into svg in HTML
+d3 plots of gene expression seems good: <plot.html>, the script has been successfully shows the csv table has transform into svg in HTML
 
 Two job remining at the moment:
 
@@ -138,3 +138,12 @@ Two job remining at the moment:
  overlay the tissue image.
 
  And ask Lukas about the detail demands of interface.
+
+----
+#### 2018-3-29
+
+Found out the scaling function of d3 is not really suitable for overlapping svg to jpg, since it will resize the x,y coordinates.
+
+Use the original size (svg:10000*10000) to match with the tissue jpg file,  the overlapping is just adjust by html(css).  However, unknown error conduct the lapping has deviation.
+
+Now the primary job is to resize the html size to a reasonable range. Then try to fit in multiple svg data into the webpage.
