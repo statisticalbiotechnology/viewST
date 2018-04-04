@@ -13,20 +13,23 @@
       stroke: #fff;
       stroke-linejoin: round;
     }
+
+
     </style>
     <script src="https://d3js.org/d3.v3.js"></script>
 </head>
 
 <body>
-    <script>
 
-      d3.csv('R-HSA-1430728_trans.csv', function (data) {
+    <script>
+    var h = 1000
+    var w = 1000
+      var data = d3.csv('R-HSA-1430728_trans.csv', function (data) {
 
       // Variables
       var body = d3.select('body')
     	var padding = 100
-    	var h = 1000
-    	var w = 1000
+
       var buckets = 9
 
       //colors panel
@@ -68,21 +71,22 @@
         .data(data)
         .enter()
       .append('circle')
-        .attr('cx',function (d) { return xScale(d.x) })
-        .attr('cy',function (d) { return (h-yScale(d.y)) })
+        .attr('cx',function (d) { return xScale(d.y) })
+        .attr('cy',function (d) { return (h-yScale(d.x)) })
         .attr('r','10')
         .attr('fill', function (d) { return colorScale(d.pcomp) })
+        .attr( "fill-opacity", "0.8")
         .on('mouseover', function () {
           d3.select(this)
             .transition()
-            .duration(500)
+            .duration(300)
             .attr('r',20)
             .attr('stroke-width',3)
         })
         .on('mouseout', function () {
           d3.select(this)
             .transition()
-            .duration(500)
+            .duration(300)
             .attr('r',10)
             .attr('stroke-width',1)
         })
@@ -92,7 +96,9 @@
       svg.append('g')
           .attr('class','axis')
           .attr('transform', "translate(0," + (h - padding) + ")")
-          .call(xAxis);
+          .call(xAxis)
+
+            ;
         })
 
 
