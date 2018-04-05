@@ -131,7 +131,7 @@ And will try to plot the map in d3.(2 days limit, if not possible then give up)
 
 d3 plots of gene expression seems good: <plot.html>, the script has been successfully shows the csv table has transform into svg in HTML
 
-Two job remining at the moment:
+Two job remaining at the moment:
 
 * figure out the scale of colorScale
 
@@ -147,3 +147,22 @@ Found out the scaling function of d3 is not really suitable for overlapping svg 
 Use the original size (svg:10000*10000) to match with the tissue jpg file,  the overlapping is just adjust by html(css).  However, unknown error conduct the lapping has deviation.
 
 Now the primary job is to resize the html size to a reasonable range. Then try to fit in multiple svg data into the webpage.
+
+The shift of multiple svg data remaining undone.
+
+----
+#### 2018-4-03
+
+Trying to continue figuring out the shift between to svg data.
+
+----
+#### 2018-4-04
+
+The transition(shift) in the d3 webpage for two sets of pathway data has been finished.
+
+Now the job comes to adapt the whole databases into the diagram.
+
+----
+#### 2018-4-05
+
+Fixed an error call on the console due to the misplace of .on strings.
