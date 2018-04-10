@@ -166,3 +166,21 @@ Now the job comes to adapt the whole databases into the diagram.
 #### 2018-4-05
 
 Fixed an error call on the console due to the misplace of .on strings.
+
+----
+#### 2018-4-09
+
+Set up desktop, ready to run large datasets in the codes.
+
+Conclusions after the meeting:
+
+* add tool tip in the svg layer to indicate the pcomp.
+
+* tell the scale about color
+
+* two views (subburst; node trees) combination.
+
+----
+#### 2018-4-10
+
+Desktop crashed during uninstall python2.
