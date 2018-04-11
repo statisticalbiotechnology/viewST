@@ -184,3 +184,12 @@ Conclusions after the meeting:
 #### 2018-4-10
 
 Desktop crashed during uninstall python2.
+
+----
+#### 2018-4-11
+Due to the repair of desktop, the treatment of large datasets need to be delay.
+
+Instead, I start to look into the code of sunburst and node-tree plot first.
+I am also trying to separate the .css, .js and .html in order to make the script easy readable.
+
+Found out I need to build up the json data, which shows the hierarchical relationship as well as q value of pathways. Thus, will find a way to build up this data, either use d3.hierarchy or python code. 
