@@ -132,7 +132,7 @@ And will try to plot the map in d3.(2 days limit, if not possible then give up)
 d3 plots of gene expression seems good: <plot.html>, the script has been successfully shows the csv table has transform into svg in HTML
 
 Two job remaining at the moment:
-
+git config --global user.email "you@example.com"
 * figure out the scale of colorScale
 
  overlay the tissue image.
@@ -207,5 +207,3 @@ The final version of json matrix contains of three columns: Pathways; Ngenes; ex
 Trying to build up the js code for sunburst diagram. The partition of each arc is based on  the number of genes size, and the color scale is base on the explained_ratios, the reatio number of each pathway did not really indicate desired info, so the color distriburion of diagram did not really shows the expression level of each pathway in the tissue.
 
 Another question is the zoomable view is not functioned in the html view for some reason.
-
- 
