@@ -207,3 +207,6 @@ The final version of json matrix contains of three columns: Pathways; Ngenes; ex
 Trying to build up the js code for sunburst diagram. The partition of each arc is based on  the number of genes size, and the color scale is base on the explained_ratios, the reatio number of each pathway did not really indicate desired info, so the color distriburion of diagram did not really shows the expression level of each pathway in the tissue.
 
 Another question is the zoomable view is not functioned in the html view for some reason.
+
+----
+#### 2018-4-18
