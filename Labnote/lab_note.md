@@ -192,4 +192,20 @@ Due to the repair of desktop, the treatment of large datasets need to be delay.
 Instead, I start to look into the code of sunburst and node-tree plot first.
 I am also trying to separate the .css, .js and .html in order to make the script easy readable.
 
-Found out I need to build up the json data, which shows the hierarchical relationship as well as q value of pathways. Thus, will find a way to build up this data, either use d3.hierarchy or python code. 
+Found out I need to build up the json data, which shows the hierarchical relationship as well as q value of pathways. Thus, will find a way to build up this data, either use d3.hierarchy or python code.
+
+----
+#### 2018-4-12 to 2018-4-16
+
+Spend several days to treat series of datasets in order to creat the json matrix of sunburst diagram.
+
+The final version of json matrix contains of three columns: Pathways; Ngenes; explained_ratios. The explained_ratios will be erplaced be other factors when any quality value is avaliable. However, it seems a description of each pathway can be good to include into the matrix. Moreover, there should some tags in the matrix that can link the sunburst diagram to double layer plots.
+
+----
+#### 2018-4-17
+
+Trying to build up the js code for sunburst diagram. The partition of each arc is based on  the number of genes size, and the color scale is base on the explained_ratios, the reatio number of each pathway did not really indicate desired info, so the color distriburion of diagram did not really shows the expression level of each pathway in the tissue.
+
+Another question is the zoomable view is not functioned in the html view for some reason.
+
+ 
