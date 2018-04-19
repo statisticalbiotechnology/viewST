@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>overlap by d3</title>
+<script src="https://d3js.org/d3.v4.js"></script>
+<style>
+.counties {
+  fill: none;
+}
+
+.states {
+  fill: none;
+  stroke: #fff;
+  stroke-linejoin: round;
+}
+
+
+
+</style>
+<script src="https://d3js.org/d3.v3.js"></script>
+</head>
+
+<body>
+<svg width="1000" height="1000">
+  <!--filter id="monochrome"><feColorMatrix type="saturate" values="0"></feColorMatrix></filter-->
+  <defs><image id="image", width=100% ,   xlink:href="/datasets/MOB_R1/HE_Rep1.jpg"></image></defs>
+
+  <!--use id="monochrome-image" filter="url(#monochrome)" xlink:href="#image"></use-->
+  <use id="color-image",  xlink:href="#image"></use>
+</svg>
+<div id="variable"></div>
+    <div id="data-picker">
+    </div>
+  <script>
+    var chartDiv = document.getElementById("image")
+    var h = 1000
+    var w = 1000
+    var datasets= ["R-HSA-1430728_trans-2.csv" , "R-HSA-196854_trans.csv"]
+    var readcsv = function(d) {return database[d]};
+    var plots = d3.csv(readcsv, function (data) {
+
+   //Variables
+  //var body = d3.select('body')
+  var buckets = 9
+
+   //colors panel
+  var colors = ["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"]
+
+  var colorScale = d3.scale.quantile()
+    .domain([0, buckets , d3.max(d3.max(data,function (d) { return d.pcomp;}))])
+    .range(colors)
+
+
+    var svg = d3.select("svg")
+  .append('g')
+    .attr('height', h)
+    .attr('width',  w)
+
+  // X-axis
+  var xAxis = d3.svg.axis()
+    .scale(colorScale)
+
+    .ticks(5)
+    .orient('bottom')
+
+    // Circles
+var circles = svg.selectAll('circle')
+    .data(data)
+    .enter()
+  .append('circle')
+    .attr('cx',function (d) { return (0.1 * d.x)})
+    .attr('cy',function (d) { return (0.1 * d.y) })
+    .attr('r','10')
+    .attr('fill', function (d) { return colorScale(d.pcomp) })
+    .attr( "fill-opacity", "0.8")
+    .on('mouseover', function () {
+      d3.select(this)
+        .transition()
+        .duration(300)
+        .attr('r',20)
+        .attr('stroke-width',3)
+    })
+    .on('mouseout', function () {
+      d3.select(this)
+        .transition()
+        .duration(300)
+        .attr('r',10)
+        .attr('stroke-width',1)
+    })
+
+
+  // creat X-axis
+  svg.append('g')
+      .attr('class','axis')
+      .attr('transform', "translate(0," + h +  ")")
+      .call(xAxis)
+
+        ;
+    })
+
+    var datapicker = d3.select("#data-picker").selectAll(".data-button")
+      .data(datasets);
+
+      datapicker.enter()
+      .append("input")
+      .attr("value", function(d){ return "Dataset " + d })
+      .attr("type", "button")
+      .attr("class", "datas-button")
+      .on("click", function(d) {
+        readcsv([d]);})
+
+
+    //.append('text') // X-axis Label
+      //.attr('class','label')
+      //.attr('y',-10)
+      //.attr('x',w)
+      //.attr('dy','.71em')
+      //.style('text-anchor','end')
+      //.text('Annualized Standard Deviation')
+
+</script>
+
+</body>
+</html>
