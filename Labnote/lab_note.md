@@ -210,3 +210,16 @@ Another question is the zoomable view is not functioned in the html view for som
 
 ----
 #### 2018-4-18
+
+Stuck in the zoomable view of sunburst diagram.
+
+the desktop has finished repairement, setting up and transfer the files from laptop to desktop.
+
+----
+#### 2018-4-19
+
+figure out the zoomable problem, bug happens at the
+    var partition
+part, due to unknown reason,there is .size string in the function which should not happen.
+
+Now I meet another problem is the sunburst diagram has some logical problem itself, detailly say: when children has some overlap part of genes, thier sum up of ngenes will larger than the parent's ngenes. In order to figure out this bug in javascript, I think I need to try d3.v4 and adapt rest part of code into this version as well.

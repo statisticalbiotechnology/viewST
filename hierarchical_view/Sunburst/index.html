@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html>
+<style>
+path {
+stroke: #fff;
+}
+</style>
   <head>
     <meta charset="utf-8">
     <title>Home</title>
@@ -8,19 +13,13 @@
     <link rel="stylesheet" type="text/css" href="sunburst.css"/>
   </head>
   <body>
+    <select id="json_sources" name="json_sources">
+      	<option value ="" selected>---Select cancer---</option>
+        <option value = "Rep1_MOB_tree.json"> Rep1_MOB</option>
+    	</select>​
     <div id="main">
       <div id="sequence"></div>
-      <div id="chart">
-        <div id="explanation" style="visibility: hidden;">
-          <span id="percentage"></span><br/>
-          of visits begin with this sequence of pages
         </div>
-      </div>
-    </div>
-    <div id="sidebar">
-      <input type="checkbox" id="togglelegend"> Legend<br/>
-      <div id="legend" style="visibility: hidden;"></div>
-    </div>
     <script type="text/javascript" src="sunburst.js"></script>
   </script>
   </body>

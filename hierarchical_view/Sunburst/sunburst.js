@@ -1,6 +1,6 @@
 var width = 960,
     height = 700,
-    radius = (Math.min(width, height) / 2) - 5;
+    radius = (Math.min(width, height) / 2) - 10;
 
 var formatNumber = d3.format(",d");
 
@@ -18,17 +18,19 @@ var colorScale = d3.scale.quantize()
     .domain([0.05,0.25])
     .range(color);
 
+
+
 var partition = d3.layout.partition()
-    .size([2 * Math.PI, radius * radius])
-    .value(function(d) { return d.ngenes; });
+   .value(function(d) {return d3.nest(d.children ? 0 : d.ngenes)});
 
 var arc = d3.svg.arc()
-    .startAngle(function(d) { return d.x; })
-    .endAngle(function(d) { return d.x + d.dx; })
-    .innerRadius(function(d) { return Math.sqrt(d.y); })
-    .outerRadius(function(d) { return Math.sqrt(d.y + d.dy); });
+    .startAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x))); })
+    .endAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x + d.dx))); })
+    .innerRadius(function(d) { return Math.max(0, y(d.y)); })
+    .outerRadius(function(d) { return Math.max(0, y(d.y + d.dy)); });
 
-var svg = d3.select("body").append("svg")
+
+var svgs = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height)
   .append("g")
@@ -37,44 +39,46 @@ var svg = d3.select("body").append("svg")
 var breadcrumb = d3.breadcrumb()
     .container('svg').wrapWidth(width * 2/3)
 
-var legend = d3.select('svg')
-    .append("g")
-    .selectAll("g")
-    .data(Array.apply(null, {length: 500}).map(Number.call, Number).map(function(x) { return x/500 }))
-    .enter()
-    .append('g')
-    .attr('class', 'legend')
-    .attr('transform', function(d, i) {
-        var height = 10;
-        var x = i * 1;
-        var y = 2*radius -10
-        return 'translate(' + x + ',' + y + ')';
-        });
 
-
-d3.json("Rep1_MOB_tree.json", function(error, root) {
+d3.select("#json_sources").on('change', draw)
+function draw() {
+    source = d3.select("#json_sources").property('value')
+d3.json(source, function(error, root) {
     if (error) throw error;
-  svg.selectAll("path")
-      .data(partition.nodes(root))
-      .enter().append("path")
-      .attr("d", arc)
-      .style("fill", function(d) { return colorScale((d.children ? d : d.parent).explained_ratios); })
-      .on("click", click)
+    svgs.selectAll("path")
+       .data(partition.nodes(root))
+       .enter().append("path")
+       .attr("d", arc)
+       .style("fill", function(d) { return colorScale((d.children ? d : d.parent).explained_ratios); })
+       .on("click", click)
     .append("title")
-      .text(function(d) { return d.source + "\n" + formatNumber(d.value); });
-})
+      .text(function(d) { return d.description + "\n" + formatNumber(d.explained_ratios); });
+});
 
 function click(d) {
-  path.transition()
+      svgs.transition()
       .duration(750)
-      .tween("scale", function() {
-        var xd = d3.interpolate(x.domain(), [d.x, d.x + d.dx]),
-            yd = d3.interpolate(y.domain(), [d.y, 1]),
-            yr = d3.interpolate(y.range(), [d.y ? 20 : 0, radius]);
-        return function(t) { x.domain(xd(t)); y.domain(yd(t)).range(yr(t)); };
-      })
     .selectAll("path")
-      .attrTween("d", function(d) { return function() { return arc(d); }; })
+      .attrTween("d", arcTween(d));
 };
+
+function arcTween(d) {
+  var xd = d3.interpolate( x.domain(), [d.x, d.x + d.dx] ),
+      yd = d3.interpolate( y.domain(), [d.y, 1] ),
+      yr = d3.interpolate( y.range(), [d.y ? 20 : 0,radius]);
+
+  return function(d, i) {
+    return i
+        ? function(t) { return arc(d); }
+        : function(t) {
+            x.domain( xd(t) );
+            y.domain( yd(t) ).range( yr(t) );
+            return arc(d);
+        };
+  };
+};
+
+};
+
 
 d3.select(self.frameElement).style("height", height + "px");
