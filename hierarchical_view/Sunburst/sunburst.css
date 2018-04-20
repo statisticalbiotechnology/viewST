@@ -7,3 +7,28 @@ body {
   height: 700px;
   margin-top: 10px;
 }
+
+#json_sources{float: left;
+}
+#sequence {
+  width: 600px;
+  height: 70px;
+}
+
+#main {
+  positoin: relative;
+  width: 750px;
+}
+
+#sequence text, #legend text {
+  font-weight: 600;
+  fill: #fff;
+}
+
+#chart {
+  position: relative;
+}
+
+#chart path {
+  stroke: #fff;
+}

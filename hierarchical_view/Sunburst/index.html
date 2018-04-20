@@ -2,13 +2,15 @@
 <html>
 <style>
 path {
-stroke: #fff;
+stroke: white;
+stroke-opacity: .4;
+stroke-width: 3;
 }
 </style>
   <head>
     <meta charset="utf-8">
     <title>Home</title>
-    <script src="//d3js.org/d3.v3.min.js"></script>
+    <script src="//d3js.org/d3.v4.min.js"></script>
     <script src="breadcrumb.js"></script>
     <link rel="stylesheet" type="text/css" href="sunburst.css"/>
   </head>
@@ -16,11 +18,13 @@ stroke: #fff;
     <select id="json_sources" name="json_sources">
       	<option value ="" selected>---Select cancer---</option>
         <option value = "Rep1_MOB_tree.json"> Rep1_MOB</option>
+        <option value = "Rep2_MOB_tree.json"> Rep2_MOB</option>
     	</select>​
     <div id="main">
-      <div id="sequence"></div>
-        </div>
-    <script type="text/javascript" src="sunburst.js"></script>
+     <div id="sequence"></div>
+     <div id="chart">
+       </div>
+    <script type="text/javascript" src="sunburst_d3v4.js"></script>
   </script>
   </body>
 </html>
