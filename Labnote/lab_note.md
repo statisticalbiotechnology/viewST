@@ -223,3 +223,26 @@ figure out the zoomable problem, bug happens at the
 part, due to unknown reason,there is .size string in the function which should not happen.
 
 Now I meet another problem is the sunburst diagram has some logical problem itself, detailly say: when children has some overlap part of genes, thier sum up of ngenes will larger than the parent's ngenes. In order to figure out this bug in javascript, I think I need to try d3.v4 and adapt rest part of code into this version as well.
+
+----
+#### 2018-4-20
+
+Figured out the unarrange of nodes problem by switch the code format from d3v3 to d3v4, and also the lengend has been added to the plot.
+
+Created a fade away function, so when mouse point over certain arc position, other arcs will fade away.
+
+----
+#### 2018 -4-23
+
+Shows the sunburst diagram in the meeting, however Lukas was more concerning about the "data update" part of my project.
+
+Although  how this data update function will avhieve still remine unclear in detail, but generally I will create large frame of codes that can calls Gus' codes, combine with my part of code and then execute to generate the both plots.
+
+----
+#### 2018 -4-23
+
+Still think to build up a node tree vision of hierarchy data, but modified codes will take time
+
+Then apart from this, the major task for now is
+ * combine sunburst with double layer plots.
+ * Data update.
