@@ -15,11 +15,12 @@ stroke-width: 3;
     <link rel="stylesheet" type="text/css" href="sunburst.css"/>
   </head>
   <body>
-    <select id="json_sources" name="json_sources">
-      	<option value ="" selected>---Select cancer---</option>
-        <option value = "Rep1_MOB_tree.json"> Rep1_MOB</option>
-        <option value = "Rep2_MOB_tree.json"> Rep2_MOB</option>
+    <select id="json_sources">
+      	<option data-value ="" data-div= "" selected>---Select cancer---</option>
+        <option data-value = "Rep1_MOB_tree.json" data-div= "/Databases/HE_image/HE_Rep1.jpg"> Rep1_MOB</option>
+        <option data-value = "Rep2_MOB_tree.json" data-div= "/Databases/HE_image/HE_Rep2.jpg"> Rep2_MOB</option>
     	</select>​
+    <div id="image" ></div>
     <div id="main">
      <div id="sequence"></div>
      <div id="chart">
