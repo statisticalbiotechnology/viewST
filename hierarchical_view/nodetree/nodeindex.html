@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.node circle {
+  fill: #999;
+}
+
+.node text {
+  font: 10px sans-serif;
+}
+
+.node--internal circle {
+  fill: #555;
+}
+
+.node--internal text {
+  text-shadow: 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff;
+}
+
+.link {
+  fill: none;
+  stroke: #555;
+  stroke-opacity: 0.4;
+  stroke-width: 1.5px;
+}
+
+</style>
+  <head>
+    <meta charset="utf-8">
+    <title>Home</title>
+    <script src="//d3js.org/d3.v4.min.js"></script>
+  </head>
+  <body>
+    <select id="json_sources" name="json_sources">
+      	<option value ="" selected>---Select cancer---</option>
+        <option value = "Rep1_MOB_tree.json"> Rep1_MOB</option>
+        <option value = "Rep2_MOB_tree.json"> Rep2_MOB</option>
+    	</select>​
+    <div id="main">
+       </div>
+    <script type="text/javascript" src="nodetreemod.js"></script>
+  </script>
+  </body>
+</html>
