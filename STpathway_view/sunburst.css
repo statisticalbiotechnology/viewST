@@ -1,0 +1,48 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  background-color: #fff;
+  width: 960px;
+  height: 700px;
+  margin-top: 10px;
+}
+
+
+#json_sources{float: left;
+  margin-top: 10px;
+}
+
+#sequence {
+  width: 600px;
+  height: 70px;
+}
+
+#main {
+  positoin: relative;
+  width: 900px;
+}
+
+#sequence text, #legend text {
+  font-weight: 600;
+  fill: #fff;
+}
+
+#chart {
+  position: relative;
+}
+
+#chart path {
+  stroke: #fff;
+}
+
+#image {
+  position: absolute;
+  left: 900px;
+  top:70px;
+  margin-top: 10px;
+  width: 1000px;
+  height: 1000px
+}
+
+#svg {}

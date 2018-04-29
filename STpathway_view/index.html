@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<style>
+path {
+stroke: white;
+stroke-opacity: .4;
+stroke-width: 3;
+}
+</style>
+  <head>
+    <meta charset="utf-8">
+    <title>Home</title>
+    <script src="//d3js.org/d3.v4.min.js"></script>
+    <script src="breadcrumb.js"></script>
+    <link rel="stylesheet" type="text/css" href="sunburst.css"/>
+  </head>
+  <body>
+    <select id="json_sources">
+      	<option data-value ="" data-div= "" selected>---Select cancer---</option>
+        <option data-value = "/Databases/Sunburst/Rep1_MOB_tree.json" data-div= "/Databases/HE_image/HE_Rep1.jpg"> Rep1_MOB</option>
+        <option data-value = "/Databases/Sunburst/Rep2_MOB_tree.json" data-div= "/Databases/HE_image/HE_Rep2.jpg"> Rep2_MOB</option>
+    	</select>​
+    <div id="image" ></div>
+    <div id="main">
+     <div id="sequence"></div>
+     <div id="chart">
+       </div>
+    <script type="text/javascript" src="sunburst.js"></script>
+  </script>
+  </body>
+</html>
