@@ -71,7 +71,8 @@ function draw() {
            .on("click", click)
            .on('mouseover', mouseover)
         .append("title")
-          .text(function(d) { return "pathway name:  " + d.data.source + "\n" + "q:  " + parseFloat(d.data.explained_ratios); });
+          .text(function(d) { return "pathway name:  " + d.data.source + "\n" + "q:  " + parseFloat(d.data.explained_ratios) +
+          "\n" + "description:  " + d.data.description });
     });
 
     function click(d) {

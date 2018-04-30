@@ -108,18 +108,21 @@ def transformation():
     pathways= test.index
 
     for i in pathways:
-        result = process(file_df ,"R-HSA-1299344")
-        print(result)
-        with open(transformation_file_name) as f:
-            transform_vector = f.read()
-            transform_vector = transform_vector.split(" ")
-            transform_vector = [float(x) for x in transform_vector]
-            transform_matrix = np.matrix(np.reshape(transform_vector, (3,3)))
-            transform_matrix = transform_matrix[0:2,0:2]
+        try:
+            result = process(file_df ,i)
+            print(i)
+            with open(transformation_file_name) as f:
+                transform_vector = f.read()
+                transform_vector = transform_vector.split(" ")
+                transform_vector = [float(x) for x in transform_vector]
+                transform_matrix = np.matrix(np.reshape(transform_vector, (3,3)))
+                transform_matrix = transform_matrix[0:2,0:2]
 
-            pixel_coord = np.matrix(result[['x','y']] -1) * transform_matrix
-            # transform to pixel coordinates acording to instruction on web page and email
-            result[['x','y']] = pd.DataFrame(pixel_coord.tolist())
-            result.to_csv(outpath + i + ".csv", sep = ",")
+                pixel_coord = np.matrix(result[['x','y']] -1) * transform_matrix
+                # transform to pixel coordinates acording to instruction on web page and email
+                result[['x','y']] = pd.DataFrame(pixel_coord.tolist())
+                result.to_csv(outpath + i + ".csv", sep = ",")
+        except ValueError:
+            open(outpath + i + ".csv", 'w').close()
 
 Result=transformation()

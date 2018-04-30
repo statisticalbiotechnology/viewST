@@ -246,3 +246,35 @@ Still think to build up a node tree vision of hierarchy data, but modified codes
 Then apart from this, the major task for now is
  * combine sunburst with double layer plots.
  * Data update.
+
+----
+#### 2018 -4-24 -2018-4-25
+
+Temporary gave up in node tree version of hierarchy view since there is no significant use for this at present, I may redo it after major tasks of project finish.
+
+Embed the histological image into the sunburst script, which takes more time then expect, the interaction between .json and .jpg can be difficult due to the lmitation of javascript.
+
+----
+#### 2018 -4-26
+
+Finish write the script for the new version of sunburst viewer, the new version embed the histological image in the same webpage with the original subburst svg, and both of them shifts when selecting different experiment sets.
+
+Now the work move on to the pathway expression plot, the original script of that part need to be modified so that it can interate with the sunburst script.
+
+----
+#### 2018 -4-27  
+
+Try to regulate the script of double layer plot, meet some problem of data implement. And the other task for this part is add tooltip in each probe points.
+
+On the same time, trying to generate the massive database of pathway express databases from differnt experiment sets. In order to achieve this, prevoius python code need to be modified.
+
+----
+#### 2018 -4-30
+
+Rewrite the sunburst_json code: embed the 'id' column into json file so hopefully it can recognize the pathway expression matrix in the script.
+
+The double plot script has also finish modified, waiting for the finish of massive dataset generation complete then I can test.
+
+Lukas advise I can use 'event' to interact two scripts (specificly between sunburst script and pathway expression script).
+
+The datasets generation takes more time then expect, after simplify the code, it takes appromixlty 20 hours to generate 2000 pathway matrix.
