@@ -8,26 +8,29 @@ from scipy.interpolate import griddata
 from sklearn.metrics import log_loss
 from skimage.transform import rescale
 import sys
+import os
 
 import analyze
 
-data_path = "../Databases"
+data_path = "../../Databases/"
 
 hugo2ensembl_file = data_path + "hugo2ensembl.txt"
 
 reactome_file = data_path + "Ensembl2Reactome_All_Levels.txt"
 
-experiment_name = ['Layer1_BC' ,'Layer2_BC' ,'Layer3_BC' ,'Layer4_BC' , 'Rep1_MOB' , 'Rep2_MOB' ,'Rep3_MOB' , 'Rep4_MOB' ,'Rep5_MOB' ,'Rep6_MOB' , 'Rep7_MOB' , 'Rep8_MOB' ,
-'Rep9_MOB' , 'Rep10_MOB' , 'Rep11_MOB', 'Rep12_MOB']
+experiment_name = 'Layer1_BC'
 
-transformation_file_name = data_path + experiment_name + "_transformation.txt"
+transformation_file_name = data_path + "trans_vector/" + experiment_name + "_transformation.txt"
 
-count_file_name = data_path + experiment_name + "_count_matrix-1.tsv"
+count_file_name = data_path + "matrix/" + experiment_name + "_count_matrix-1.tsv"
+
+outpath= data_path + "trans_matrix/"+ experiment_name +"/"
+
+if not os.path.exists(outpath):
+    os.makedirs(outpath)
 
 def read_file(file_name, ensembl = True, clean = True):
-    dictionary = ptransformation_file_name = data_path + experiment_name + "_transformation.txt"
-    count_file_name = data_path + experiment_name + "_count_matrix-1.tsv"
-    d.DataFrame.from_csv(hugo2ensembl_file, sep="\t")
+    dictionary = pd.DataFrame.from_csv(hugo2ensembl_file, sep="\t")
     data = pd.DataFrame.from_csv(file_name, sep="\t")
 
     gene_names = data.columns.tolist()
@@ -48,8 +51,6 @@ def read_reactome(file_name, gene_name_start = "ENSG0"):
     df = pd.read_csv(file_name, sep='\t', header=None)
     subset_vec = df[0].str.startswith(gene_name_start)
     df = df.loc[subset_vec]
-    transformation_file_name = data_path + experiment_name + "_transformation.txt"
-    count_file_name = data_path + experiment_name + "_count_matrix-1.tsv"
     out_df = pd.DataFrame()
     for pathway in np.unique(df[1]):
         subset_df = df.loc[df[1] == pathway]
@@ -70,8 +71,6 @@ def process(df, pathway, return_metrics = False, pathway_generator = pd.DataFram
     else:
         pathway_generator_df = pathway_generator
 
-    transformation_file_name = data_path + experiment_name + "_transformation.txt"
-    count_file_name = data_path + experiment_name + "_count_matrix-1.tsv"
     genes = pathway_generator_df.loc[pathway]
 
     test = [x in df.columns for x in genes.tolist()[1]]
@@ -102,41 +101,25 @@ def process(df, pathway, return_metrics = False, pathway_generator = pd.DataFram
         return out_df
 
 #show scaling data
-def transformation(experiment_name, pathway, normalization = False):
-
-    transformation_file_name = data_path + experiment_name + "_transformation.txt"
-    count_file_name = data_path + experiment_name + "_count_matrix-1.tsv"
+def transformation():
 
     file_df = read_file(count_file_name)
+    test = read_reactome(reactome_file)
+    pathways= test.index
 
-    if normalization:
-        file_df = file_df.div(file_df.sum(axis = 1), axis = 0)
+    for i in pathways:
+        result = process(file_df ,"R-HSA-1299344")
+        print(result)
+        with open(transformation_file_name) as f:
+            transform_vector = f.read()
+            transform_vector = transform_vector.split(" ")
+            transform_vector = [float(x) for x in transform_vector]
+            transform_matrix = np.matrix(np.reshape(transform_vector, (3,3)))
+            transform_matrix = transform_matrix[0:2,0:2]
 
-    if pathway != 'sum':
-        results = process(file_df ,pathway)
-        pathway_generator_df = read_reactome(reactome_file)
-        path_name = pathway_generator_df.loc[pathway,'pathway_name']
+            pixel_coord = np.matrix(result[['x','y']] -1) * transform_matrix
+            # transform to pixel coordinates acording to instruction on web page and email
+            result[['x','y']] = pd.DataFrame(pixel_coord.tolist())
+            result.to_csv(outpath + i + ".csv", sep = ",")
 
-    else:
-        results = process(file_df , path_name) # generic pathway
-        results['pcomp'] = file_df.sum(axis=1).values
-        path_name = 'Sum'
-
-    with open(transformation_file_name) as f:
-        transform_vector = f.read()
-
-    transform_vector = transform_vector.split(" ")
-    transform_vector = [float(x) for x in transform_vector]
-    transform_matrix = np.matrix(np.reshape(transform_vector, (3,3)))
-    transform_matrix = transform_matrix[0:2,0:2]
-
-    pixel_coord = np.matrix(results[['x','y']] -1) * transform_matrix # transform to pixel coordinates acording to instruction on web page and email
-
-    results[['x','y']] = pd.DataFrame(pixel_coord.tolist())
-
-    return  results
-
-#Result=transformation("R-HSA-1430728")
-#Result.to_csv("R-HSA-1430728_trans3.csv", sep = ",")
-read_reactome(count_file_name)
-print(out_df)
+Result=transformation()

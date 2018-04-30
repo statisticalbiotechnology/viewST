@@ -105,9 +105,8 @@ div.tooltip {
 
   var legend = d3.select("svg").selectAll(".legend")
               .data(colors);
-
-          legend.enter()
-          .append("rect")
+      legend.enter()
+            .append("rect")
             .attr("x", function(d, i) { return legendElementWidth * i; })
             .attr("y", h-20 )
             .attr("width", legendElementWidth)
