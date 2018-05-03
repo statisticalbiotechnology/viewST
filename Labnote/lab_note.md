@@ -278,3 +278,19 @@ The double plot script has also finish modified, waiting for the finish of massi
 Lukas advise I can use 'event' to interact two scripts (specificly between sunburst script and pathway expression script).
 
 The datasets generation takes more time then expect, after simplify the code, it takes appromixlty 20 hours to generate 2000 pathway matrix.
+
+----
+#### 2018 5-1
+
+Spend time write project plan second part.
+
+The pathway dataset of MOB_Rep1 and layer1_BC has been generated.
+
+----
+#### 2018-5-2
+
+Find a big bug about the prvious code: the MOB stands for mouse brain cell, however the previous filter function in the code were using human pathway databases all the time.
+
+So filter function and files need to be change, dataset need to be regenerate.
+
+It will be better to separate the code between human and mouse cells, and the key file: hugo2ensembl.txt need to be redownload based on mouse pathway databases.

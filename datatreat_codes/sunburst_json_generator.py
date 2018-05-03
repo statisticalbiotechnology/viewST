@@ -8,7 +8,7 @@ import simplejson
 
 #Set up the data path
 data_path = "../../Databases/"
-experiment_name= 'Layer1_BC'
+experiment_name= 'Rep2_MOB'
 hugo2ensembl_file = data_path + "hugo2ensembl.txt"
 reactome_file = data_path + "Ensembl2Reactome_All_Levels.txt"
 count_file_name = data_path + 'matrix/' + experiment_name + '_count_matrix-1.tsv'  #set up input matrix data path
