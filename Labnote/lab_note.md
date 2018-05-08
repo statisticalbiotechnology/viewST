@@ -294,3 +294,47 @@ Find a big bug about the prvious code: the MOB stands for mouse brain cell, howe
 So filter function and files need to be change, dataset need to be regenerate.
 
 It will be better to separate the code between human and mouse cells, and the key file: hugo2ensembl.txt need to be redownload based on mouse pathway databases.
+
+----
+#### 2018-5-7
+
+Leave the pathway definetion problem Temporarily since its not really part of the job for this project, will retutrn to this question if there is extra time.
+
+Continue working on the combination of to js files. Found out event listener function is not really suitable for this case, neither jquery is working.
+
+----
+#### 2018 -5-8
+
+New found is that the function is different .js file can actully being used mutually, which means when one js file has one function(e.g datapick), the other js can call this function as well if they are under the same html page. (tip: better use the same d3 version for both js file).
+
+And Realized it is also important to separate the functions in code instead of net them:
+
+Instead of :
+
+    function foo(a, b) {
+    function bar() {
+        return a + b;
+    }
+
+    return bar();
+    }
+
+    foo(1, 2);
+
+Its better choose:
+
+    function foo(a, b) {
+    return bar(a, b);
+    }
+
+    function bar(a, b) {
+    return a + b;
+    }
+
+    foo(1, 2);
+
+This method can help reduce CPU cost, accerlarate the loading speed.
+
+Finished combination work, eventually, everything seems works fine.
+
+Except from there is some bug in sunburst plot, when click really some children pathway, the radius cannot close itselves.

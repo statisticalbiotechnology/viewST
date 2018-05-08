@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>overlap by d3</title>
-<script src="https://d3js.org/d3.v4.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
 <style>
 
 div.tooltip {
@@ -20,13 +20,10 @@ div.tooltip {
 }
 
 </style>
-<script src="https://d3js.org/d3.v3.js"></script>
 </head>
 <body>
 <svg width="1000" height="1000">
-  <!--filter id="monochrome"><feColorMatrix type="saturate" values="0"></feColorMatrix></filter-->
   <defs><image id="image", width=100% ,   xlink:href="\Databases\HE_image\HE_Rep1.jpg"></image></defs>
-  <!--use id="monochrome-image" filter="url(#monochrome)" xlink:href="#image"></use-->
   <use id="color-image",  xlink:href="#image"></use>
 </svg>
     </div>
@@ -34,7 +31,7 @@ div.tooltip {
   <script>
     var h = 1000
     var w = 1000
-    var datasets= ["/Databases/trans_matrix/R-HSA-196854_trans.csv"]
+    var datasets= "/Databases/trans_matrix/R-HSA-196854_trans.csv"
     //colors panel
     var colors = ["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"]
     legendElementWidth = 70;
@@ -64,7 +61,7 @@ div.tooltip {
     var circles = svg.selectAll('circle')
     .data(data, function(d) {return d.horizon +':'+ d.vertical});
 
-    var colorScale = d3.scale.quantile()
+    var colorScale = d3.scaleQuantile()
         .domain([0, buckets , d3.max(data, function (d) { return d.pcomp;})])
         .range(colors);
 

@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html>
 <style>
+
 path {
 stroke: white;
 stroke-opacity: .4;
 stroke-width: 3;
 }
+
+
+
 </style>
   <head>
     <meta charset="utf-8">
@@ -23,10 +27,17 @@ stroke-width: 3;
     	</select>​
     <div id="image" ></div>
     <div id="main">
-     <div id="sequence"></div>
-     <div id="chart">
-       </div>
+    <div id="sequence"></div>
+    </div>
+    <svg height= "1000", width= "1000"
+    style="
+    position:absolute;
+    left: 900px;
+    top: 70px;
+    margin-top: 10px; ">
+    <g id= "diagram"> </g>
+  </svg>
     <script type="text/javascript" src="sunburst.js"></script>
-  </script>
+    <script type="text/javascript" src="combination.js"></script>
   </body>
 </html>

@@ -75,12 +75,13 @@ function draw() {
           "\n" + "description:  " + d.data.description });
     });
 
+
     function click(d) {
             svg.transition()
             .duration(750)
           .selectAll("path")
-            .attrTween("d", arcTween(d));
-      };
+            .attrTween("d", arcTween(d))
+            return datapick(d)};
 
     function arcTween(d) {
       var xd = d3.interpolate(x.domain(), [d.x0, d.x1]),
@@ -135,7 +136,7 @@ function mouseleave(d) {
   // Transition each segment to full opacity and then reactivate it.
   d3.selectAll("path")
       .transition()
-      .duration(200)
+      .duration(100)
       .style("opacity", 1)
       .on("end", function() {
               d3.select(this).on("mouseover", mouseover);
