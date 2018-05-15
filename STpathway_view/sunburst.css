@@ -9,39 +9,59 @@ body {
 }
 
 
-#json_sources{float: left;
-  margin-top: 10px;
+
+#json_sources{position: absolute;
+margin-top: 10px;
+left: 10px;
+top:10px;
 }
 
 #sequence {
-  width: 600px;
+  position: absolute;
+  margin-top: 10px;
+  left: 10px;
+  top: 40px;
+  width: 700px;
   height: 70px;
 }
 
-#main {
-  positoin: relative;
-  width: 900px;
-}
 
 #sequence text, #legend text {
   font-weight: 600;
   fill: #fff;
 }
 
+#Reset{
+  position: absolute;
+  top: 130px;
+  left: 10px;
+}
+
+#Back{
+  position: absolute;
+  top: 155px;
+  left: 10px;
+}
+
 #image {
   position: absolute;
-  left: 900px;
-  top:70px;
+  left: 1000px;
+  top:10px;
   margin-top: 10px;
   width: 1000px;
   height: 1000px
 }
 
-g#diagramg {
-    position: absolute;
-    left: 9000px;
-    top: 700px;
-    margin-top: 10px;
+#searchid{
+  position: absolute;
+  left: 500px;
+  top: 130px;
+}
+
+#searchbutton{
+  position: absolute;
+  left: 650px;
+  top: 130px;
 }
 
 div.tooltip {

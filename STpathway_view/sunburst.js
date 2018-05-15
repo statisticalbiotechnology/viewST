@@ -1,6 +1,6 @@
-var width = 960,
-    height = 700,
-    radius = (Math.min(width, height) / 2) - 10;
+var width = 1000,
+    height = 1000,
+    radius = (Math.min(width, height) / 2.1) - 10;
 
 var formatNumber = d3.format(",d");
 
@@ -22,11 +22,14 @@ var colorScale = d3.scaleQuantize()
 
 var partition = d3.partition();
 
+
+
 var arc = d3.arc()
     .startAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x0))); })
     .endAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x1))); })
     .innerRadius(function(d) { return Math.max(0, y(d.y0)); })
     .outerRadius(function(d) { return Math.max(0, y(d.y1)); });
+
 
 var svg = d3.select("body").append("svg")
     .attr("width", width)
@@ -36,7 +39,8 @@ var svg = d3.select("body").append("svg")
     .attr("transform", "translate(" + width / 2 + "," + (height / 2) + ")");
 
 var breadcrumb = d3.breadcrumb()
-    .container('svg').wrapWidth(width * 2/3)
+    .container('#sequence').wrapWidth(width * 2/3)
+
 
 var img= document.createElement("img");
 
@@ -44,7 +48,6 @@ var img= document.createElement("img");
 //main fuction start
 d3.select("#json_sources").on('change', draw)
 function draw() {
-    initializeBreadcrumbTrail();
     var d = document.getElementById("json_sources");
     svg.selectAll('path').remove();
     svg.selectAll("img").remove();
@@ -71,14 +74,19 @@ function draw() {
            .on("click", click)
            .on('mouseover', mouseover)
         .append("title")
-          .text(function(d) { return "pathway name:  " + d.data.source + "\n" + "q:  " + parseFloat(d.data.explained_ratios) +
+          .text(function(d) { return "pathway_name:  " + d.data.source + "\n" + "q:  " + parseFloat(d.data.explained_ratios) +
           "\n" + "description:  " + d.data.description });
     });
 
+    function reset(){
+
+    };
+
+    document.getElementById("Reset").addEventListener("click", reset);
 
     function click(d) {
             svg.transition()
-            .duration(750)
+            .duration(1000)
           .selectAll("path")
             .attrTween("d", arcTween(d))
             return datapick(d)};
@@ -98,22 +106,16 @@ function draw() {
         };
     };
     d3.select("#container").on("mouseleave", mouseleave)
+    d3.select(self.frameElement).style("height", height + "px")
 
-
-function getAncestors(node) {
-  var path = [];
-  var current = node;
-  while (current.parent) {
-    path.unshift(current);
-    current = current.parent;
-  }
-  return path;
-};
 
 // Fade all but the current sequence, and show it in the breadcrumb trail.
 function mouseover(d) {
-   var sequenceArray = getAncestors(d);
-   updateBreadcrumbs(sequenceArray);
+   var sequenceArray = d.ancestors().reverse();
+   sequenceArray.forEach(function(a) {
+     a.text = a.data.source;
+     a.fill = '#73b0af';})
+   breadcrumb.show(sequenceArray);
   d3.selectAll("path")
       .style("opacity", 0.4);
   // Then highlight only those that are an ancestor of the current segment.
@@ -126,92 +128,17 @@ function mouseover(d) {
 
 function mouseleave(d) {
 
-  // Hide the breadcrumb trail
-  d3.select("#trail")
-      .style("visibility", "hidden");
-
   // Deactivate all segments during transition.
   d3.selectAll("path").on("mouseover", null);
 
   // Transition each segment to full opacity and then reactivate it.
   d3.selectAll("path")
       .transition()
-      .duration(100)
+      //.duration(300)
       .style("opacity", 1)
       .on("end", function() {
               d3.select(this).on("mouseover", mouseover);
             });
 };
 
-//breadcrumb functions
-function initializeBreadcrumbTrail() {
-  // Add the svg area.
-  var trail = d3.select("#sequence").append("svg:svg")
-      .attr("width", width)
-      .attr("height", 50)
-      .attr("id", "trail");
-  // Add the label at the end, for the percentage.
-  trail.append("svg:text")
-    .attr("id", "endlabel")
-    .style("fill", "#000");
-}
-
-function initializeBreadcrumbTrail() {
-  // Add the svg area.
-  var trail = d3.select("#sequence").append("svg:svg")
-      .attr("width", width)
-      .attr("height", 50)
-      .attr("id", "trail");
-  // Add the label at the end, for the percentage.
-  trail.append("svg:text")
-    .attr("id", "endlabel")
-    .style("fill", "#000");
-}
-// Generate a string that describes the points of a breadcrumb polygon.
-function breadcrumbPoints(d, i) {
-  var points = [];
-  points.push("0,0");
-  points.push(b.w + ",0");
-  points.push(b.w + b.t + "," + (b.h / 2));
-  points.push(b.w + "," + b.h);
-  points.push("0," + b.h);
-  if (i > 0) { // Leftmost breadcrumb; don't include 6th vertex.
-    points.push(b.t + "," + (b.h / 2));
-  }
-  return points.join(" ");
-}
-
-// Update the breadcrumb trail to show the current sequence and percentage.
-function updateBreadcrumbs(nodeArray) {
-  // Data join; key function combines name and depth (= position in sequence).
-  var g = d3.select("#trail")
-      .selectAll("g")
-      .data(nodeArray, function(d) { return d.data.source + d.depth; });
-  // Add breadcrumb and label for entering nodes.
-  var entering = g.enter().append("svg:g");
-  entering.append("svg:polygon")
-      .attr("points", breadcrumbPoints)
-      .style("fill", function(d) { return colorScale((d.children ? d : d.parent).data.explained_ratios); });
-
-  entering.append("svg:text")
-      .attr("x", (b.w + b.t) / 2)
-      .attr("y", b.h / 2)
-      .attr("dy", "0.35em")
-      .attr("text-anchor", "middle")
-      .text(function(d) { return d.data.source; });
-
-  // Set position for entering and updating nodes.
-  g.attr("transform", function(d, i) {
-    return "translate(" + i * (b.w + b.s) + ", 0)";
-  });
-
-  // Remove exiting nodes.
-  g.exit().remove();
-
-  // Make the breadcrumb trail visible, if it's hidden.
-  d3.select("#trail")
-      .style("visibility", "");
-    }
 };
-
-d3.select(self.frameElement).style("height", height + "px");
