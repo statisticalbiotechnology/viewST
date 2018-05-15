@@ -44,6 +44,7 @@ var breadcrumb = d3.breadcrumb()
 
 var img= document.createElement("img");
 
+d3.select("body").append("input").attr("id", "searchid").attr("value", "HomoSapiens");
 
 //main fuction start
 d3.select("#json_sources").on('change', draw)
@@ -52,7 +53,6 @@ function draw() {
     svg.selectAll('path').remove();
     svg.selectAll("img").remove();
     var source = d.options[d.selectedIndex].dataset["value"];
-
     //insert histological image by DOM
     img.src = d.options[d.selectedIndex].dataset["div"];
     src = document.getElementById("image");
@@ -66,7 +66,8 @@ function draw() {
         roots = d3.hierarchy(root)
         roots.sum(function(d) { return d.children ? 0 : d.ngenes; });
 
-        svg.selectAll("path")
+
+        var plot = svg.selectAll("path")
            .data(partition(roots).descendants())
            .enter().append("path")
            .attr("d", arc)
@@ -74,14 +75,25 @@ function draw() {
            .on("click", click)
            .on('mouseover', mouseover)
         .append("title")
-          .text(function(d) { return "pathway_name:  " + d.data.source + "\n" + "q:  " + parseFloat(d.data.explained_ratios) +
-          "\n" + "description:  " + d.data.description });
-    });
+          .text(function(d) { return "pathway name:  " + d.data.source + "\n" + "q:  " + parseFloat(d.data.explained_ratios) +
+          "\n" + "description:  " + d.data.description })
 
-    function reset(){
+        document.getElementById("searchbutton").addEventListener("click",highlight);
+        function highlight(){
+          d3.selectAll("path")
+              .style("stroke", "white")
+              .style("stroke-width", 3)
+              .style("stroke-opacity", .4); 
+        var highlight = d3.selectAll("path")
+         .filter(function(d) { return d.data.source === document.getElementById("searchid").value });
+         highlight.transition()
+         .duration(700)
+         .style("stroke", "red")
+         .style("stroke-width", 7);}
+         });
 
-    };
 
+    function reset(){  };
     document.getElementById("Reset").addEventListener("click", reset);
 
     function click(d) {
@@ -107,7 +119,7 @@ function draw() {
     };
     d3.select("#container").on("mouseleave", mouseleave)
     d3.select(self.frameElement).style("height", height + "px")
-
+};
 
 // Fade all but the current sequence, and show it in the breadcrumb trail.
 function mouseover(d) {
@@ -134,11 +146,8 @@ function mouseleave(d) {
   // Transition each segment to full opacity and then reactivate it.
   d3.selectAll("path")
       .transition()
-      //.duration(300)
       .style("opacity", 1)
       .on("end", function() {
               d3.select(this).on("mouseover", mouseover);
             });
-};
-
 };
