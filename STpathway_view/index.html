@@ -6,6 +6,14 @@ path {
 stroke: white;
 stroke-opacity: .4;
 stroke-width: 3;
+-webkit-transform: perspective(0) translateZ(0);
+-webkit-transition-duration: 0s;
+-webkit-transition-property: transform;
+}
+
+path:hover, path:focus, path:active {
+  -webkit-transform: scale(1.02);
+  transform: scale(1.02);
 }
 
 
@@ -16,6 +24,7 @@ stroke-width: 3;
     <title>Home</title>
     <script src="//d3js.org/d3.v4.min.js"></script>
     <script src="breadcrumb.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="sunburst.css"/>
   </head>
   <body>
@@ -29,6 +38,8 @@ stroke-width: 3;
     <svg id="sequence"></svg>
     <button id="Reset">Reset</button>
     <button id="searchbutton">search</button>
+    <label><input class="mode" type="radio" id="color1" value="Blues" checked> Linear</label>
+ <label><input class="mode" type="radio" id="color2" value="Oranges"> Grouped</label>
     </div>
     <div id="image" ></div>
     <svg height= "1000", width= "1000"

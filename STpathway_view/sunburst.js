@@ -12,9 +12,8 @@ var y = d3.scaleSqrt()
 
 var b = {w: 115, h: 30, s: 3, t: 10};
 
-var color = ['#00ffff','#1bf7f7','#30f0ef','#3fe8e7','#4be0df',
-    '#55d8d7','#5dd0cf','#64c7c7','#69c0bf','#6eb7b7','#73b0af',
-    '#76a8a7','#79a09f','#7c9797','#7d908f','#7f8787','#808080'];
+var color = d3.schemeBlues[9];
+var color2 = d3.schemeOranges[9];
 
 var colorScale = d3.scaleQuantize()
     .domain([0,0.2,0.3,1])
@@ -71,7 +70,7 @@ function draw() {
            .attr("d", arc)
            .style("fill", function(d) { return colorScale((d.children ? d : d.parent).data.explained_ratios); })
            .on("click", click)
-           //.on('mouseover', mouseover)
+           .on('mouseover', mouseover)
         .append("title")
           .text(function(d) { return "pathway name:  " + d.data.source + "\n" + "q:  " + parseFloat(d.data.explained_ratios) +
           "\n" + "description:  " + d.data.description })
@@ -118,7 +117,6 @@ function draw() {
 
 
 
-    d3.select("#container").on("mouseleave", mouseleave)
     d3.select(self.frameElement).style("height", height + "px")
 };
 
@@ -128,27 +126,4 @@ function mouseover(d) {
    sequenceArray.forEach(function(a) {
      a.text = a.data.source;
      a.fill = '#73b0af';})
-   breadcrumb.show(sequenceArray);
-  d3.selectAll("path")
-      .style("opacity", 0.4);
-  // Then highlight only those that are an ancestor of the current segment.
-  svg.selectAll("path")
-      .filter(function(node) {
-                return (sequenceArray.indexOf(node) >= 0);
-              })
-      .style("opacity", 1);
-}
-
-function mouseleave(d) {
-
-  // Deactivate all segments during transition.
-  d3.selectAll("path").on("mouseover", null);
-
-  // Transition each segment to full opacity and then reactivate it.
-  d3.selectAll("path")
-      .transition()
-      .style("opacity", 1)
-      .on("end", function() {
-              d3.select(this).on("mouseover", mouseover);
-            });
-};
+   breadcrumb.show(sequenceArray);}

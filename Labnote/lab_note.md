@@ -340,16 +340,27 @@ Finished combination work, eventually, everything seems works fine.
 Except from there is some bug in sunburst plot, when click really some children pathway, the radius cannot close itselves.
 
 ----
-2018-5-14
+#### 2018-5-14
 
 get some feedback from lask week's fika session, working on improving ux at present.
 
 Add the overall search function for the sunburst diagram.
 
 ----
-2018-5-15
+#### 2018-5-15
 
 Find out the reason of THE BUG, according to the book:
 
       newer transitions interrupt and override older transitions. Clicking the bars initiates one transition. Immediately mousing over a bar interrupts that initial transition in order to run the mouseover highlight transition we specified earlier. The end result is that those moused-over bars never make it to their final destinations.
       But don’t worry. This example is just a good argument for keeping hover effects in CSS, while letting D3 and JavaScript manage the more visually intensive actions.
+
+add the reset function by re interplot the diagram in reset function.
+
+----
+#### 2018-5-17
+
+Changed the color scheme of both svgs (sunburst and overlap plot).
+
+Removed the fade away function in d3 script, add up a hover function (to bounce up certain arc) by using css. That aviod animation crashed for d3.
+
+Thinkinf about add a function that can let users choose several differnt color scheme by themselves.

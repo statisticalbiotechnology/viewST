@@ -2,7 +2,7 @@ var h = 1000
 var w = 1000
 
 //colors panel
-var colors = ["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"]
+var colors = d3.schemeRdBu[11];
 legendElementWidth = 70;
 var buckets = 9;
 var circles = d3.select("#diagram").selectAll('circle');
@@ -32,7 +32,7 @@ var data = d3.csv(datasets,
       var circles = d3.select("#diagram").selectAll('circle')
       .data(data, function(d) {return d.horizon +':'+ d.vertical});
       var colorScale = d3.scaleQuantile()
-          .domain([0, buckets , d3.max(data, function (d) { return d.pcomp;})])
+          .domain([d3.min(data, function (d) { return d.pcomp;}), buckets , d3.max(data, function (d) { return d.pcomp;})])
           .range(colors);
 
 
