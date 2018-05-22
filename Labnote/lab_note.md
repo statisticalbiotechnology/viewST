@@ -364,3 +364,8 @@ Changed the color scheme of both svgs (sunburst and overlap plot).
 Removed the fade away function in d3 script, add up a hover function (to bounce up certain arc) by using css. That aviod animation crashed for d3.
 
 Thinkinf about add a function that can let users choose several differnt color scheme by themselves.
+
+----
+#### 2018 -5-18
+
+Add up the function to change the colorways of sunburst in webpage. (between green and orange).

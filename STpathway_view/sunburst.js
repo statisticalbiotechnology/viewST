@@ -12,12 +12,9 @@ var y = d3.scaleSqrt()
 
 var b = {w: 115, h: 30, s: 3, t: 10};
 
-var color = d3.schemeBlues[9];
-var color2 = d3.schemeOranges[9];
-
 var colorScale = d3.scaleQuantize()
-    .domain([0,0.2,0.3,1])
-    .range(color);
+                   .domain([0,0.2,0.3,1])
+                   .range(d3.schemeBlues[9]);
 
 var partition = d3.partition();
 
@@ -46,6 +43,7 @@ d3.select("body").append("input").attr("id", "searchid").attr("value", "HomoSapi
 
 //main fuction start
 d3.select("#json_sources").on('change', draw)
+
 function draw() {
     var d = document.getElementById("json_sources");
     svg.selectAll('path').remove();
@@ -88,12 +86,32 @@ function draw() {
          .style("stroke", "red")
          .style("stroke-width", 7);};
 
+         document.getElementById("label1").addEventListener("click",choosecolor1);
+         document.getElementById("label2").addEventListener("click",choosecolor2);
+         function choosecolor1(){
+           document.getElementById("label2").checked = false;
+           var colorScale2 = d3.scaleQuantize()
+               .domain([0,0.2,0.3,1])
+               .range(d3.schemeBlues[9]);
+           var choosecolor = d3.selectAll("path").style("fill", function(d) { return colorScale2((d.children ? d : d.parent).data.explained_ratios); })
+          choosecolor.transition()
+          .duration(700)};
+
+          function choosecolor2(){
+            document.getElementById("label1").checked = false;
+            var colorScale2 = d3.scaleQuantize()
+                .domain([0,0.2,0.3,1])
+                .range(d3.schemeGreens[9]);
+            var choosecolor = d3.selectAll("path").style("fill", function(d) { return colorScale2((d.children ? d : d.parent).data.explained_ratios); })
+           choosecolor.transition()
+           .duration(700)};
+
          document.getElementById("Reset").addEventListener("click", reset);
          function reset(){svg.transition()
          .duration(1000)
          .tween("scale", function() {
-             var xd = d3.interpolate(x.domain(), [0, 0.31* Math.PI]),
-                 yd = d3.interpolate(y.domain(), [0, 0.31* Math.PI]),
+             var xd = d3.interpolate(x.domain(), [0, 0.3183* Math.PI]),
+                 yd = d3.interpolate(y.domain(), [0, 0.3183* Math.PI]),
                  yr = d3.interpolate(y.range(), [0, radius]);
              return function(t) { x.domain(xd(t)); y.domain(yd(t)).range(yr(t)); };
          })

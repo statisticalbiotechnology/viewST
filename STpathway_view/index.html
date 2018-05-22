@@ -38,8 +38,10 @@ path:hover, path:focus, path:active {
     <svg id="sequence"></svg>
     <button id="Reset">Reset</button>
     <button id="searchbutton">search</button>
-    <label><input class="mode" type="radio" id="color1" value="Blues" checked> Linear</label>
- <label><input class="mode" type="radio" id="color2" value="Oranges"> Grouped</label>
+    <label id="label1">
+      <input type="radio" name="colors" checked> Blues</label>
+    <label id="label2">
+      <input type="radio" name="colors" > Greens</label>
     </div>
     <div id="image" ></div>
     <svg height= "1000", width= "1000"
@@ -52,6 +54,5 @@ path:hover, path:focus, path:active {
   </svg>
     <script type="text/javascript" src="sunburst.js"></script>
     <script type="text/javascript" src="combination.js"></script>
-    <script type="text/javascript" src="searchbar.js"></script>
   </body>
 </html>

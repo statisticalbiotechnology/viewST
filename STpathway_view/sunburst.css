@@ -37,9 +37,14 @@ top:10px;
   left: 10px;
 }
 
-#Back{
+#label1 {
   position: absolute;
-  top: 155px;
+  top: 930px;
+  left: 10px;
+}
+#label2 {
+  position: absolute;
+  top: 960px;
   left: 10px;
 }
 
@@ -75,8 +80,4 @@ div.tooltip {
     border: 0px;
     border-radius: 8px;
     pointer-events: none;
-}
-
-svg {
-  border: solid 1px blue;
 }
