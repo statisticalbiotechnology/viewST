@@ -8,7 +8,18 @@ body {
   margin-top: 10px;
 }
 
-
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 60 px;
+    height: 28px;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: lightsteelblue;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+}
 
 #json_sources{position: absolute;
 margin-top: 10px;
@@ -21,10 +32,9 @@ top:10px;
   margin-top: 10px;
   left: 10px;
   top: 40px;
-  width: 700px;
+  width: 900px;
   height: 70px;
 }
-
 
 #sequence text, #legend text {
   font-weight: 600;
@@ -67,17 +77,4 @@ top:10px;
   position: absolute;
   left: 675px;
   top: 130px;
-}
-
-div.tooltip {
-    position: absolute;
-    text-align: center;
-    width: 60 px;
-    height: 28px;
-    padding: 2px;
-    font: 12px sans-serif;
-    background: lightsteelblue;
-    border: 0px;
-    border-radius: 8px;
-    pointer-events: none;
 }

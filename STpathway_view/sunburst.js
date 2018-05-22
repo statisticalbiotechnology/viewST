@@ -32,20 +32,16 @@ var svg = d3.select("body").append("svg")
     .attr("transform", "translate(" + width / 2 + "," + (height / 2) + ")");
 
 var breadcrumb = d3.breadcrumb()
-    .container('#sequence').wrapWidth(width * 2/3)
-
+    .container('#sequence').wrapWidth(width * 3/4)
 
 var img= document.createElement("img");
 
 d3.select("body").append("input").attr("id", "searchid").attr("value", "HomoSapiens");
 
-
-
 //main fuction start
 d3.select("#json_sources").on('change', draw)
-
 function draw() {
-    var d = document.getElementById("json_sources");
+    var d = document.getElementById("json_sources"); //choose datasets
     svg.selectAll('path').remove();
     svg.selectAll("img").remove();
     var source = d.options[d.selectedIndex].dataset["value"];
@@ -55,14 +51,12 @@ function draw() {
     img.width=1000;
     src.append(img);
 
-
     d3.json(source, function(error, root) {
         if (error) throw error;
-
         roots = d3.hierarchy(root)
         roots.sum(function(d) { return d.children ? 0 : d.ngenes; });
 
-          svg.selectAll("path")
+        svg.selectAll("path") //plot sunburst
            .data(partition(roots).descendants())
            .enter().append("path")
            .attr("d", arc)
@@ -73,39 +67,51 @@ function draw() {
           .text(function(d) { return "pathway name:  " + d.data.source + "\n" + "q:  " + parseFloat(d.data.explained_ratios) +
           "\n" + "description:  " + d.data.description })
 
+        function click(d) {
+            svg.transition()
+               .duration(1000)
+               .tween("scale", function() {
+                 var xd = d3.interpolate(x.domain(), [d.x0, d.x1]),
+                     yd = d3.interpolate(y.domain(), [d.y0, 1]),
+                     yr = d3.interpolate(y.range(), [d.y0 ? 20 : 0, radius]);
+                 return function(t) { x.domain(xd(t)); y.domain(yd(t)).range(yr(t)); };
+             })
+               .selectAll("path")
+               .attrTween("d", function(d) { return function() { return arc(d); }; });
+            return datapick(d)};
+        // search button
         document.getElementById("searchbutton").addEventListener("click",highlight);
         function highlight(){
           d3.selectAll("path")
               .style("stroke", "white")
               .style("stroke-width", 3)
               .style("stroke-opacity", .4);
+        // show search result
         var highlight = d3.selectAll("path")
          .filter(function(d) { return d.data.source === document.getElementById("searchid").value });
          highlight.transition()
          .duration(700)
          .style("stroke", "red")
          .style("stroke-width", 7);};
-
+         //change colorways of sunburst
          document.getElementById("label1").addEventListener("click",choosecolor1);
          document.getElementById("label2").addEventListener("click",choosecolor2);
          function choosecolor1(){
-           document.getElementById("label2").checked = false;
            var colorScale2 = d3.scaleQuantize()
                .domain([0,0.2,0.3,1])
                .range(d3.schemeBlues[9]);
-           var choosecolor = d3.selectAll("path").style("fill", function(d) { return colorScale2((d.children ? d : d.parent).data.explained_ratios); })
-          choosecolor.transition()
-          .duration(700)};
+           var choosecolor = d3.selectAll("path").transition()
+           .duration(700)
+           .style("fill", function(d) { return colorScale2((d.children ? d : d.parent).data.explained_ratios); })};
 
           function choosecolor2(){
-            document.getElementById("label1").checked = false;
             var colorScale2 = d3.scaleQuantize()
                 .domain([0,0.2,0.3,1])
                 .range(d3.schemeGreens[9]);
-            var choosecolor = d3.selectAll("path").style("fill", function(d) { return colorScale2((d.children ? d : d.parent).data.explained_ratios); })
-           choosecolor.transition()
-           .duration(700)};
-
+            var choosecolor = d3.selectAll("path").transition()
+            .duration(700)
+            .style("fill", function(d) { return colorScale2((d.children ? d : d.parent).data.explained_ratios); })};
+         // Sunburst reset button
          document.getElementById("Reset").addEventListener("click", reset);
          function reset(){svg.transition()
          .duration(1000)
@@ -120,28 +126,13 @@ function draw() {
          };
          });
 
-    function click(d) {
-            svg.transition()
-            .duration(1000)
-            .tween("scale", function() {
-    						var xd = d3.interpolate(x.domain(), [d.x0, d.x1]),
-    								yd = d3.interpolate(y.domain(), [d.y0, 1]),
-    								yr = d3.interpolate(y.range(), [d.y0 ? 20 : 0, radius]);
-    						return function(t) { x.domain(xd(t)); y.domain(yd(t)).range(yr(t)); };
-    				})
-    				.selectAll("path")
-    				.attrTween("d", function(d) { return function() { return arc(d); }; });
-            return datapick(d)};
-
-
-
     d3.select(self.frameElement).style("height", height + "px")
 };
 
-// Fade all but the current sequence, and show it in the breadcrumb trail.
+// add the sequence label on the webpage
 function mouseover(d) {
    var sequenceArray = d.ancestors().reverse();
    sequenceArray.forEach(function(a) {
      a.text = a.data.source;
-     a.fill = '#73b0af';})
+     a.fill = '#21b7b5';})
    breadcrumb.show(sequenceArray);}

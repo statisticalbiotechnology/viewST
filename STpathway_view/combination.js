@@ -1,11 +1,11 @@
 var h = 1000
 var w = 1000
-
-//colors panel
 var colors = d3.schemeRdBu[11];
 legendElementWidth = 70;
+var formatDecimalComma = d3.format(",.2f"); //define decimal number display
 var buckets = 9;
 var circles = d3.select("#diagram").selectAll('circle');
+
 var svgside = d3.select("body")
   .attr('height', h)
   .attr('width',  w)
@@ -15,27 +15,24 @@ var tooltip = d3.select("body").append("div")
   .attr("class", "tooltip")
   .style("opacity", 0);
 
-var formatDecimalComma = d3.format(",.2f");
-
+//define datasets
 function datapick(d){
-var datasets= ["/Databases/trans_matrix/Layer1_BC/" + d.data.identify]
-var data = d3.csv(datasets,
-    function(d) {
-      return {
-        "horizon": +d.x,
-        "vertical": +d.y,
-        "pcomp" : +d.pcomp};
-      },
+  var datasets= ["/Databases/trans_matrix/Layer1_BC/" + d.data.identify]
+  var data = d3.csv(datasets, function(d) {
+    return {
+      "horizon": +d.x,
+      "vertical": +d.y,
+      "pcomp" : +d.pcomp}; //rename each data  columns
+    },
 
       function plot(data) {
-
       var circles = d3.select("#diagram").selectAll('circle')
       .data(data, function(d) {return d.horizon +':'+ d.vertical});
+
       var colorScale = d3.scaleQuantile()
           .domain([d3.min(data, function (d) { return d.pcomp;}), buckets , d3.max(data, function (d) { return d.pcomp;})])
           .range(colors);
-
-
+      //major plot function
       circles.enter()
       .append('circle')
       .attr('cx',function (d) { return ((1000/9272) * d.vertical)})
@@ -76,8 +73,10 @@ var data = d3.csv(datasets,
       });
     };
 
+// add legend 
 var legend = d3.select("#diagram").selectAll(".legend")
             .data(colors);
+
     legend.enter()
           .append("rect")
           .attr("x", function(d, i) { return legendElementWidth * i; })

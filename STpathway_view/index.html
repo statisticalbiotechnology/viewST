@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <style>
-
 path {
 stroke: white;
 stroke-opacity: .4;
@@ -15,26 +14,26 @@ path:hover, path:focus, path:active {
   -webkit-transform: scale(1.02);
   transform: scale(1.02);
 }
-
-
-
 </style>
+<!-- define the sunburst diagram properties and animation -->
   <head>
     <meta charset="utf-8">
     <title>Home</title>
     <script src="//d3js.org/d3.v4.min.js"></script>
-    <script src="breadcrumb.js"></script>
+    <script src="breadcrumb.js"></script><!-- the navigation panel package -->
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="sunburst.css"/>
   </head>
   <body>
     <div id="main">
+    <!-- add tissue section data and thier correlated histological image -->
     <select id="json_sources">
       	<option data-value ="" data-div= "" selected>---Select cancer---</option>
         <option data-value = "/Databases/Sunburst/Rep1_MOB_tree.json" data-div= "/Databases/HE_image/HE_Rep1.jpg"> Rep1_MOB</option>
         <option data-value = "/Databases/Sunburst/Rep2_MOB_tree.json" data-div= "/Databases/HE_image/HE_Rep2.jpg"> Rep2_MOB</option>
         <option data-value = "/Databases/Sunburst/Layer1_BC_tree.json" data-div= "/Databases/HE_image/HE_layer1_BC.jpg"> Layer1_BC</option>
-    	</select>​
+    </select>​
+      <!-- add css button elements -->
     <svg id="sequence"></svg>
     <button id="Reset">Reset</button>
     <button id="searchbutton">search</button>
@@ -44,14 +43,15 @@ path:hover, path:focus, path:active {
       <input type="radio" name="colors" > Greens</label>
     </div>
     <div id="image" ></div>
+    <!--css element for overlay plot -->
     <svg height= "1000", width= "1000"
-    style="
+    style = "
     position:absolute;
     left: 1000px;
     top: 10px;
-    margin-top: 10px; ">
+    margin-top: 10px;">
     <g id= "diagram"> </g>
-  </svg>
+    </svg>
     <script type="text/javascript" src="sunburst.js"></script>
     <script type="text/javascript" src="combination.js"></script>
   </body>
