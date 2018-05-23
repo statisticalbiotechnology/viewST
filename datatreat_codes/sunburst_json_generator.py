@@ -19,7 +19,6 @@ outname = data_path + 'Sunburst/' + experiment_name + '_tree.json' #set up outpu
 
 #before run this, make sure the version of reactome data keep same for both infile
 
-
 def read_file(file_name, ensembl = True, clean = True):
     """read matrix file transfer into ensembl formate"""
     dictionary = pd.DataFrame.from_csv(hugo2ensembl_file, sep="\t") #use hugo2ensembl as dictionary
@@ -40,19 +39,17 @@ def read_reactome(file_name, gene_name_start = "ENSG0"): #choose gene only belon
     df = pd.read_csv(file_name, sep='\t', header=None)
     subset_vec = df[0].str.startswith(gene_name_start)
     df = df.loc[subset_vec]
-
     out_df = pd.DataFrame()
     for pathway in np.unique(df[1]):
         subset_df = df.loc[df[1] == pathway]
         pathway_name = subset_df.iloc[0,3]
         genes = np.array(subset_df[0])
-        pathway_id = pathway + '.csv'
+        pathway_id = pathway + '.csv' #as a navigation to locate matrix file
         out_df = out_df.append([[pathway, genes, pathway_id, pathway_name]])
 
     out_df.columns = ['pathway', 'genes', 'pathway_id', 'pathway_name']
     out_df.set_index(out_df.columns[0], inplace=True)
     return out_df
-
 
 def process(df, return_metrics = True, pathway_generator_df = pd.DataFrame()):
     """Combine pathway info with gene number and ratio value, generate final table """
@@ -70,6 +67,7 @@ def process(df, return_metrics = True, pathway_generator_df = pd.DataFrame()):
         if test:
             sub_df = df.loc[:,genes.tolist()[0]].transpose()
             components, explained_ratio = analyze.my_pca(sub_df) #ratio calculation
+            #key function from analyze file, can be modified when data updated.
             explained_ratio = np.array(explained_ratio)
         else:
             explained_ratio = float('nan')
