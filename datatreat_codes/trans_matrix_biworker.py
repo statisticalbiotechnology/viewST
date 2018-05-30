@@ -9,46 +9,37 @@ from sklearn.metrics import log_loss
 from skimage.transform import rescale
 import sys
 import os
-
 import analyze
-
+#Set up the data path
 data_path = "../../Databases/"
-
 hugo2ensembl_file = data_path + "hugo2ensembl.txt"
-
 reactome_file = data_path + "Ensembl2Reactome_All_Levels.txt"
-
-experiment_name = 'Rep1_MOB'
-
+experiment_name=input('Please enter experiment name: ')
 transformation_file_name = data_path + "trans_vector/" + experiment_name + "_transformation.txt"
-
 count_file_name = data_path + "matrix/" + experiment_name + "_count_matrix-1.tsv"
-
 outpath= data_path + "trans_matrix/"+ experiment_name +"/"
-
+#make sure there are output for empty pathways
 if not os.path.exists(outpath):
     os.makedirs(outpath)
 
 def read_file(file_name, ensembl = True, clean = True):
-    dictionary = pd.DataFrame.from_csv(hugo2ensembl_file, sep="\t")
+    """read matrix file transfer into ensembl formate"""
+    dictionary = pd.DataFrame.from_csv(hugo2ensembl_file, sep="\t") #use hugo2ensembl as dictionary
     data = pd.DataFrame.from_csv(file_name, sep="\t")
-
     gene_names = data.columns.tolist()
     gene_names = [w.upper() for w in gene_names]
     ensembl_names = dictionary.loc[gene_names]
 
     if ensembl:
         data.columns = ensembl_names.iloc[:,0]
-
     if clean:
         dataisnan = data.columns != data.columns
         data = data.iloc[:,~dataisnan]
-
     return data
 
 def read_reactome(file_name, gene_name_start = "ENSG0"):
-    # global subset_df
-    df = pd.read_csv(file_name, sep='\t', header=None)
+    """transfer the matrix from ensemnl formate into into reactome formate """
+    df = pd.read_csv(file_name, sep='\t', header=None)   #global subset_df
     subset_vec = df[0].str.startswith(gene_name_start)
     df = df.loc[subset_vec]
     out_df = pd.DataFrame()
@@ -60,29 +51,24 @@ def read_reactome(file_name, gene_name_start = "ENSG0"):
 
     out_df.columns = ['pathway', 'pathway_name', 'genes']
     out_df.set_index('pathway', inplace=True)
-
     return out_df
 
-
 def process(df, pathway, return_metrics = False, pathway_generator = pd.DataFrame()):
-
+    """generate matrix with x y pca coordinates """
     if pathway_generator.empty:
         pathway_generator_df = read_reactome(reactome_file)
     else:
         pathway_generator_df = pathway_generator
 
     genes = pathway_generator_df.loc[pathway]
-
     test = [x in df.columns for x in genes.tolist()[1]]
-
     ngenes = sum(test)
-
     test = any(test)
 
     if test:
         sub_df = df.loc[:,genes.tolist()[1]].transpose()
-        components, explained_ratio = analyze.my_pca(sub_df)
-
+        components, explained_ratio = analyze.my_pca(sub_df) #ratio calculation
+        #key function from analyze file, can be modified when data updated.
         pos = df.index.str.split('x')
 
         out_df = pd.DataFrame(components[1].tolist(), columns = ['pcomp'])
@@ -100,9 +86,8 @@ def process(df, pathway, return_metrics = False, pathway_generator = pd.DataFram
     else:
         return out_df
 
-#show scaling data
 def transformation():
-
+    """transform x y coordinates according to ST website's suggestion """
     file_df = read_file(count_file_name)
     test = read_reactome(reactome_file)
     pathways= test.index
@@ -125,4 +110,5 @@ def transformation():
         except ValueError:
             open(outpath + i + ".csv", 'w').close()
 
+#execute
 Result=transformation()

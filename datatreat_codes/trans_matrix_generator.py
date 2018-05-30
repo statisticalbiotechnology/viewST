@@ -14,7 +14,7 @@ import analyze
 data_path = "../../Databases/"
 hugo2ensembl_file = data_path + "hugo2ensembl.txt"
 reactome_file = data_path + "Ensembl2Reactome_All_Levels.txt"
-experiment_name = 'Layer1_BC'
+experiment_name=input('Please enter experiment name: ')
 transformation_file_name = data_path + "trans_vector/" + experiment_name + "_transformation.txt"
 count_file_name = data_path + "matrix/" + experiment_name + "_count_matrix-1.tsv"
 outpath= data_path + "trans_matrix/"+ experiment_name +"/"

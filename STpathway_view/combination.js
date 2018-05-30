@@ -17,7 +17,7 @@ var tooltip = d3.select("body").append("div")
 
 //define datasets
 function datapick(d){
-  var datasets= ["/Databases/trans_matrix/Layer1_BC/" + d.data.identify]
+  var datasets= ["/Databases/trans_matrix/" + d.data.identify]
   var data = d3.csv(datasets, function(d) {
     return {
       "horizon": +d.x,
@@ -73,7 +73,7 @@ function datapick(d){
       });
     };
 
-// add legend 
+// add legend
 var legend = d3.select("#diagram").selectAll(".legend")
             .data(colors);
 

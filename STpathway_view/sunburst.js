@@ -42,7 +42,7 @@ d3.select("body").append("input").attr("id", "searchid").attr("value", "HomoSapi
 d3.select("#json_sources").on('change', draw)
 function draw() {
     var d = document.getElementById("json_sources"); //choose datasets
-    svg.selectAll('path').remove();
+    d3.select("#diagram").selectAll("circle").remove();
     svg.selectAll("img").remove();
     var source = d.options[d.selectedIndex].dataset["value"];
     //insert histological image by DOM
@@ -113,7 +113,9 @@ function draw() {
             .style("fill", function(d) { return colorScale2((d.children ? d : d.parent).data.explained_ratios); })};
          // Sunburst reset button
          document.getElementById("Reset").addEventListener("click", reset);
-         function reset(){svg.transition()
+         function reset(){
+        d3.select("#diagram").selectAll("circle").remove();
+        svg.transition()
          .duration(1000)
          .tween("scale", function() {
              var xd = d3.interpolate(x.domain(), [0, 0.3183* Math.PI]),

@@ -8,7 +8,7 @@ import simplejson
 
 #Set up the data path
 data_path = "../../Databases/"
-experiment_name= 'Rep2_MOB'
+experiment_name=input('Please enter experiment name: ')
 hugo2ensembl_file = data_path + "hugo2ensembl.txt"
 reactome_file = data_path + "Ensembl2Reactome_All_Levels.txt"
 count_file_name = data_path + 'matrix/' + experiment_name + '_count_matrix-1.tsv'  #set up input matrix data path
@@ -44,7 +44,7 @@ def read_reactome(file_name, gene_name_start = "ENSG0"): #choose gene only belon
         subset_df = df.loc[df[1] == pathway]
         pathway_name = subset_df.iloc[0,3]
         genes = np.array(subset_df[0])
-        pathway_id = pathway + '.csv' #as a navigation to locate matrix file
+        pathway_id = experiment_name + '/' + pathway + '.csv' #as a navigation to locate matrix file
         out_df = out_df.append([[pathway, genes, pathway_id, pathway_name]])
 
     out_df.columns = ['pathway', 'genes', 'pathway_id', 'pathway_name']
