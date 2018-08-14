@@ -23,20 +23,35 @@ path:hover, path:focus, path:active {
     <script src="breadcrumb.js"></script><!-- the navigation panel package -->
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="sunburst.css"/>
+    <link rel="stylesheet" type="text/css" href="index.css"/>
   </head>
   <body>
+    <nav class="navBar">
+        <div class="header">
+            <!-- logo -->
+            <div class="logo">
+              <img src="/viewST/STpathway_view/SciLifeLab.svg" width="200">
+            </div>
+            <!-- add tissue section data and thier correlated histological image -->
+            <div class="json_sources">
+              <select id="sources">
+              	 <option data-value ="" data-div= "" selected>DATASET</option>
+                 <option data-value = "/Databases/Sunburst/Rep1_MOB_tree.json" data-div= "/Databases/HE_image/HE_Rep1.jpg"> Rep1_MOB</option>
+                 <option data-value = "/Databases/Sunburst/Rep2_MOB_tree.json" data-div= "/Databases/HE_image/HE_Rep2.jpg"> Rep2_MOB</option>
+                 <option data-value = "/Databases/Sunburst/Layer1_BC_tree.json" data-div= "/Databases/HE_image/HE_layer1_BC.jpg"> Layer1_BC</option>
+                 <option data-value = "/Databases/Sunburst/Layer2_BC_tree.json" data-div= "/Databases/HE_image/HE_layer2_BC.jpg"> Layer2_BC</option>
+              </select>​
+            </div>
+            <!-- nav-content -->
+                <!-- search-box -->
+            </div>
+    </nav>
+
     <div id="main">
-    <!-- add tissue section data and thier correlated histological image -->
-    <select id="json_sources">
-      	<option data-value ="" data-div= "" selected>---Select cancer---</option>
-        <option data-value = "/Databases/Sunburst/Rep1_MOB_tree.json" data-div= "/Databases/HE_image/HE_Rep1.jpg"> Rep1_MOB</option>
-        <option data-value = "/Databases/Sunburst/Rep2_MOB_tree.json" data-div= "/Databases/HE_image/HE_Rep2.jpg"> Rep2_MOB</option>
-        <option data-value = "/Databases/Sunburst/Layer1_BC_tree.json" data-div= "/Databases/HE_image/HE_layer1_BC.jpg"> Layer1_BC</option>
-    </select>​
       <!-- add css button elements -->
     <svg id="sequence"></svg>
-    <button id="Reset">Reset</button>
-    <button id="searchbutton">search</button>
+    <button id="Reset">RESET</button>
+    <button id="searchbutton">SEARCH</button>
     <label id="label1">
       <input type="radio" name="colors" checked> Blues</label>
     <label id="label2">
@@ -44,12 +59,7 @@ path:hover, path:focus, path:active {
     </div>
     <div id="image" ></div>
     <!--css element for overlay plot -->
-    <svg height= "1000", width= "1000"
-    style = "
-    position:absolute;
-    left: 1000px;
-    top: 10px;
-    margin-top: 10px;">
+    <svg id="lattice" height= "1000", width= "1000">
     <g id= "diagram"> </g>
     </svg>
     <script type="text/javascript" src="sunburst.js"></script>

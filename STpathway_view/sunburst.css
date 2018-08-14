@@ -4,7 +4,7 @@ body {
   font-weight: 400;
   background-color: #fff;
   width: 2000px;
-  height: 2000px;
+  height: 1300px;
   margin-top: 10px;
 }
 
@@ -21,17 +21,10 @@ div.tooltip {
     pointer-events: none;
 }
 
-#json_sources{position: absolute;
-margin-top: 10px;
-left: 10px;
-top:10px;
-}
-
 #sequence {
   position: absolute;
-  margin-top: 10px;
   left: 10px;
-  top: 40px;
+  top: 89px;
   width: 900px;
   height: 70px;
 }
@@ -43,7 +36,7 @@ top:10px;
 
 #Reset{
   position: absolute;
-  top: 130px;
+  top: 900px;
   left: 10px;
 }
 
@@ -58,23 +51,35 @@ top:10px;
   left: 10px;
 }
 
-#image {
-  position: absolute;
-  left: 1000px;
-  top:10px;
-  margin-top: 10px;
-  width: 1000px;
-  height: 1000px
-}
 
 #searchid{
   position: absolute;
-  left: 500px;
-  top: 130px;
+  background-color: white;
+  background:white;
+  left: 800px;
+  top: 37px;
+  z-index: 2;
+  color: black;
+  width: 200px;
+  height: 45px;
+  font-size: 18px;
+  text-align: center;
 }
 
 #searchbutton{
   position: absolute;
-  left: 675px;
-  top: 130px;
+  left: 1000px;
+  top: 37px;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.8);
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px;
 }
+
+#searchbutton:hover {background-color:grey;
+  cursor: pointer;}

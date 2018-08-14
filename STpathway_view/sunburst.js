@@ -39,9 +39,9 @@ var img= document.createElement("img");
 d3.select("body").append("input").attr("id", "searchid").attr("value", "HomoSapiens");
 
 //main fuction start
-d3.select("#json_sources").on('change', draw)
+d3.select("#sources").on('change', draw)
 function draw() {
-    var d = document.getElementById("json_sources"); //choose datasets
+    var d = document.getElementById("sources"); //choose datasets
     d3.select("#diagram").selectAll("circle").remove();
     svg.selectAll("img").remove();
     var source = d.options[d.selectedIndex].dataset["value"];

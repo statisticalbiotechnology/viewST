@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import pandas as pd
 import numpy as np
 import analyze
@@ -5,10 +7,11 @@ import networkx as nx
 from networkx.readwrite import json_graph #key package
 import json
 import simplejson
+import sys
 
 #Set up the data path
 data_path = "../../Databases/"
-experiment_name=input('Please enter experiment name: ')
+experiment_name= sys.argv[1]
 hugo2ensembl_file = data_path + "hugo2ensembl.txt"
 reactome_file = data_path + "Ensembl2Reactome_All_Levels.txt"
 count_file_name = data_path + 'matrix/' + experiment_name + '_count_matrix-1.tsv'  #set up input matrix data path
@@ -123,4 +126,4 @@ def sunburst():
     with open(outname, 'w') as outfile:
         simplejson.dump(out_json,outfile,ignore_nan=True)
 #execute
-result= sunburst()
+#result= sunburst()

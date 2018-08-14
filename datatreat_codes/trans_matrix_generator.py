@@ -1,6 +1,5 @@
+#!/usr/bin/env python3
 
-import pandas as pd
-import numpy as np
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -10,11 +9,12 @@ from skimage.transform import rescale
 import sys
 import os
 import analyze
+
 #Set up the data path
 data_path = "../../Databases/"
 hugo2ensembl_file = data_path + "hugo2ensembl.txt"
 reactome_file = data_path + "Ensembl2Reactome_All_Levels.txt"
-experiment_name=input('Please enter experiment name: ')
+experiment_name= sys.argv[1]
 transformation_file_name = data_path + "trans_vector/" + experiment_name + "_transformation.txt"
 count_file_name = data_path + "matrix/" + experiment_name + "_count_matrix-1.tsv"
 outpath= data_path + "trans_matrix/"+ experiment_name +"/"
@@ -111,4 +111,4 @@ def transformation():
             open(outpath + i + ".csv", 'w').close()
 
 #execute
-Result=transformation()
+#Result=transformation()

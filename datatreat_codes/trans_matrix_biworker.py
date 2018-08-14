@@ -111,4 +111,6 @@ def transformation():
             open(outpath + i + ".csv", 'w').close()
 
 #execute
-Result=transformation()
+#Result=transformation()
+result= read_file(count_file_name)
+print(result)
