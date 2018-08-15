@@ -20,7 +20,21 @@ div.logo{
   left: 10px;
   width: 200px;
   margin-bottom: 10px;
+}
 
+div.email{
+  position: absolute;
+  margin-top: 10px;
+  left: 1550px;
+  top: 25px;
+}
+
+div.git{
+  position: absolute;
+  margin-top: 10px;
+  left: 1630px;
+  margin-bottom: 10px;
+  top: 20px;
 }
 
 
@@ -72,4 +86,14 @@ div.logo{
     top:89px;
     width: 1000px;
     height: 1000px
+  }
+
+footer {
+  text-align: center;
+  margin-top: 160px;}
+
+hr { height: 1px;
+    border: 0;
+    box-shadow: inset 0 12px 12px -12px rgba(0, 0, 0, 0.5);
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
   }
